@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libraries</title>
+</head>
+<body>
+    <h1>Welcome to SadIO {{ logined_user }}</h1>
+    <h2>Libraries</h2>
+    <ul>
+        {% for library in libraries %}
+            <li>
+                <a href="{% url 'library' library.id %}">{{ library.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <form method="post">
+        <input type="submit" value="Logout" name="logout-submit-input" />
+        {% csrf_token %}
+    </form>
+</body>
+</html>
