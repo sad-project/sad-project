@@ -62,3 +62,8 @@ def libraries(request):
 
 def library(request):
     return HttpResponse("This is x library")
+
+
+def upload_file(file):
+    pass
+
