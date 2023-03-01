@@ -6,37 +6,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" 
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+    />
 </head>
 
 <body>
     <center>
-        <h1>Home</h1>
-        <div class="container">
-            <div class="creating library">
-                <h3>Create Library</h3>
-                <form action="#">
-                    <input type="text" placeholder="Enter library name"></br>
-                    <h4>Library Type:</h4>
-                    <input type="radio" name ="file type"value="Audio">Audio
-                    <input type="radio" name ="file type"value="Video">Video
-                    <input type="radio" name ="file type"value="Book">Book
-                    <input type="radio" name ="file type"value="Image">Image
-                    <input type="radio" name ="file type"value="Other">Other...</br>
-                    <h4>Related Fields:</h4>
-                    <input type="text" placeholder="Enter fields"> (comma-seperated)</br></br>
-                    <input type="button" class="button" value="Create">
-                </form>
-            </div>
-            <div class="libraries list">
-                <h4>Libraries</h4>
-                <form action="#">
-                    <!--for each library there are these options-->
-                    <input type="button" value="View">
-                    <input type="button" value="Edit">
-                    <input type="button" value="Get Info">
-                    <input type="button" value="Share">
-                </form>
+        <div class="container-fluid">
+            <div class="jumbotron" style="margin-top: 20px">
+                <h1 class="font-weight-bold fs-1 text-danger">Home</h1>
+                <br>
+                <form class="form-inline justify-content-center" action="#">
+                <div class="creating library">
+                    <div class="input-group form-group mb-3 col-auto d-flex justify-content-between">
+                          <span class="input-group-text" id="inputGroup-sizing-lg"
+                            >Create Library</span
+                          >
+                        <input
+                        type="text"
+                        name="search-term"
+                        value=""
+                        class="form-control"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-lg"
+                        placeholder="Enter library name"
+                      />
+                    </div>
+                        <div class="input-group input-group-prepend mb-3 col-auto d-flex justify-content-between ">
+                              <span class="input-group-text" id="inputGroup-sizing-lg"
+                                >Library Type</span
+                              >
+                        <input type="radio" name ="file type"value="Audio">Audio
+                        <input type="radio" name ="file type"value="Video">Video
+                        <input type="radio" name ="file type"value="Book">Book
+                        <input type="radio" name ="file type"value="Image">Image
+                        <input type="radio" name ="file type"value="Other">Other...
+                    </div>
+                    <div class="input-group input-group-prepend form-group mb-3 col-auto d-flex justify-content-between">
+                        <span class="input-group-text" id="inputGroup-sizing-lg"
+                          >Related Fields</span>
+                          <input
+                          type="text"
+                          name="search-term"
+                          value=""
+                          class="form-control"
+                          aria-label="Sizing example input"
+                          aria-describedby="inputGroup-sizing-lg"
+                          placeholder="Enter fields"
+                        />
+                    </div>
+                    <input class="btn btn-danger"  type="button" class="button" value="Create">
+                    </form>
+                </div>
+                <br>
+                <br>
+                <div class="libraries list">
+                    <h4>Libraries</h4>
+                    <form action="#">
+                        <div class="btn-pill col-auto mb-3">
+                        <!--for each library there are these options-->
+                        <input   class="btn btn-secondary" type="button" value="View">
+                        <input   class="btn btn-dark" type="button" value="Edit">
+                        <input   class="btn btn-secondary" type="button" value="Get Info">
+                        <input   class="btn btn-dark" type="button" value="Share">
+                    </div>
+                    </form>
+                </div>
             </div>
         </div>
     </center>
