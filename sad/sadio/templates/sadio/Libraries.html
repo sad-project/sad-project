@@ -18,9 +18,11 @@
         <div class="container">
             <div class="creating library">
                 <h3>Create Library</h3>
-                <form action="#">
-                    <input type="text" id="library-name-input" placeholder="Enter library name"></br>
-                    <h4>Library Type:</h4>
+                <form method="post">
+                    <input type="text" name="library-name-text-input" placeholder="Enter library name">
+                    </br>
+                    </br>
+                    <!-- <h4>Library Type:</h4>
                     <input type="radio" value="Audio">Audio
                     <input type="radio" value="Video">Video
                     <input type="radio" value="Book">Book
@@ -28,26 +30,20 @@
                     <input type="radio" value="Other">Other...</br>
                     <h4>Related Fields:</h4>
                     <input type="text" id="fields-input" placeholder="Enter fields"> (comma-seperated)</br>
-                    </br>
-                    <input type="submit" value="Create">
+                    </br> -->
+                    <input type="submit" name="create-library-submit-input" value="Create">
+                    {% csrf_token %}
                 </form>
             </div>
             <div class="libraries list">
                 <h4>Libraries</h4>
-                <form action="#">
-                    <ul>
-                        {% for library in libraries %}
-                        <li>
-                            <a href="{% url 'library' library.id %}">{{ library.name }}</a>
-                            <!--i think there should be a form for each button-->
-                            <input type="button" value="View">
-                            <input type="button" value="Edit">
-                            <input type="button" value="Get Info">
-                            <input type="button" value="Share">
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </form>
+                <ul>
+                    {% for library in libraries %}
+                    <li>
+                        <a href="/library/?l={{ library.name }}">{{ library.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </center>

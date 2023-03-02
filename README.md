@@ -10,7 +10,7 @@ pip install -r sad/requirements.txt
 First you should run an MinIO instance. Using Docker is recommended. So you can use the command bellow.
 ```bash
 sudo docker run \
-  -p 9000:9000 -p 9001:9001 -v ~/minio-data:/mnt/data \
+  -d -p 9000:9000 -p 9001:9001 -v ~/minio-data:/mnt/data \
   minio/minio server /mnt/data --console-address ":9001"
 ```
 Then config the MinIO variables in `sad/sad/settings.py` and run the Django project.

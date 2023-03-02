@@ -5,38 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{Library Name}} Library</title>
+    <title>{{ library.name }} Library</title>
 </head>
 
 <body>
     <center>
         <form method="post">
-            <input type="submit" value="Logout" /></br>
+            <input type="submit" value="Back" /></br>
             {% csrf_token %}
         </form>
-        <h1>{{Library Name}}</h1>
+        <h1>{{ library.name }}</h1>
         <div class="container">
             <div class="uploading files">
                 <h3>Upload Files</h3>
-                <form action=#>
-                    <input type="file" multiple="multiple">
-                    <input type="submit" value="Upload">
+                <form method="post" enctype="multipart/form-data">
+                    <input type="file" name="file-input" id="file-input">
+                    <input type="submit" name="upload-file-submit-input" value="Upload">
+                    {% csrf_token %}
                 </form>
             </div>
             <div class="library content">
                 <h4>Files</h4>
-                <form action="#">
-                    {% for library in libraries %}
+                <ul>
+                    {% for f in files %}
                     <li>
-                        <a href="{% url 'library' library.id %}">{{ library.name }}</a>
-                        <!--i think there should be a form for each button-->
-                        <input type="button" value="Download">
-                        <input type="button" value="Edit">
-                        <input type="button" value="Get Info">
-                        <input type="button" value="Share">
+                        <a href="">{{ f.object_name }}</a>
                     </li>
                     {% endfor %}
-                </form>
+                </ul>
             </div>
         </div>
     </center>

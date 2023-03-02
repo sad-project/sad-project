@@ -1,7 +1,9 @@
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.db import models
+
+from .models import Library, User
+from .lib.libhandler import LibraryHandler
+import os
 
 USERNAME_TEXT_INPUT_KEY = "username-text-input"
 PASSWORD_PASSWORD_INPUT_KEY = "password-password-input"
@@ -9,7 +11,12 @@ LOGIN_SUBMIT_INPUT_KEY = "login-submit-input"
 REGISTER_SUBMIT_INPUT_KEY = "register-submit-input"
 LOGINED_USER_KEY = "logined_user"
 LOGIN_MESSAGE_KEY = ""
+CREATE_LIBRARY_SUBMIT_INPUT_KEY = "create-library-submit-input"
+LIBRARY_NAME_TEXT_INPUT_KEY = "library-name-text-input"
+FILE_INPUT_KEY = "file-input"
+UPLOAD_FILE_SUBMIT_INPUT_KEY = "upload-file-submit-input"
 
+libraryhandler = LibraryHandler()
 
 def get_user(username):
     users = User.objects.all()
@@ -53,15 +60,37 @@ def index(request):
 
 def libraries(request):
     context = {}
-    logined_user = request.session.get(LOGINED_USER_KEY, None)
-    print(logined_user)
+    logined_user = request.session.get(LOGINED_USER_KEY, "Default User")
     context["logined_user"] = logined_user
-    # TODO: Load libraries
+    user = User.objects.get(username=logined_user)
+    libraries = Library.objects.filter(owner=logined_user)
+    context["libraries"] = libraries
+    if request.method == 'POST':
+        if CREATE_LIBRARY_SUBMIT_INPUT_KEY in request.POST:
+            library_name = request.POST.get(LIBRARY_NAME_TEXT_INPUT_KEY, None)
+            if library_name:
+                bucket = libraryhandler.create_new_bucket()
+                library = Library(name=library_name, owner=user, bucket=bucket, fields={})
+                library.save()
+                return redirect("libraries")
+
     return render(request, "sadio/Libraries.html", context)
 
 
-def library(request):
-    return HttpResponse("This is x library")
+def library(request, library_name: str):
+    context = {}
+    library = Library.objects.get(name=library_name)
+    if request.method == 'POST':
+        if UPLOAD_FILE_SUBMIT_INPUT_KEY in request.POST:
+            file = request.FILES[FILE_INPUT_KEY]
+            with open(file.name, 'wb+') as destination:
+                for chunk in file.chunks():
+                    destination.write(chunk)
+            libraryhandler.upload_file(library.bucket, file.name)
+            os.remove(file.name)            
+    context["library"] = library
+    context["files"] = libraryhandler.get_file_list(library.bucket)
+    return render(request, "sadio/Library.html", context)
 
 
 def upload_file(file):

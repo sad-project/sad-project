@@ -126,6 +126,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # MinIO
 # Read line 23
-MINIO_API_HOST = 'http://localhost:9000'
+MINIO_API_HOST = 'localhost:9000'
 MINIO_ACCESS_KEY = 'sEJODcDVHq1DHDRR'
-MINIO_SECRET_kEY = 'YlTGbfxTAzPQ4ZLiZq1yeSDIwNRXGpyv'
+MINIO_SECRET_KEY = 'YlTGbfxTAzPQ4ZLiZq1yeSDIwNRXGpyv'
+

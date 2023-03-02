@@ -5,5 +5,5 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('libraries', views.libraries, name='libraries'),
-    path('library', views.library, name='library'),
+    path('library/<str:library_name>', views.library, name='library'),
 ]
