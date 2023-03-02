@@ -8,11 +8,13 @@ class Library(models.Model):
     name = models.CharField(max_length=255, primary_key=True)
     owner = models.ForeignKey("User", on_delete=models.CASCADE)
     bucket = models.CharField(max_length=255)
+    fields = models.JSONField()
 
 class File(models.Model):
     name = models.CharField(max_length=255)
     library = models.ForeignKey("Library", on_delete=models.CASCADE)
     creation_date = models.DateTimeField()
+    fields = models.JSONField()
 
     class Meta:
         constraints = [
