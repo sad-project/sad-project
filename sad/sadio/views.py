@@ -49,7 +49,7 @@ def index(request):
                 context[LOGIN_MESSAGE_KEY] = "You are registered!"
             else:
                 context[LOGIN_MESSAGE_KEY] = "Wrong inputs for register!"
-    return render(request, "sadio/index.html", context)
+    return render(request, "sadio/Index.html", context)
 
 def libraries(request):
     context = {}
@@ -57,7 +57,7 @@ def libraries(request):
     print(logined_user)
     context["logined_user"] = logined_user
     # TODO: Load libraries
-    return render(request, "sadio/libraries.html", context)
+    return render(request, "sadio/Libraries.html", context)
 
 
 def library(request):
