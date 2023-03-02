@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{Library Name}} Library</title>
+</head>
+
+<body>
+    <center>
+        <form method="post">
+            <input type="submit" value="Logout" /></br>
+            {% csrf_token %}
+        </form>
+        <h1>{{Library Name}}</h1>
+        <div class="container">
+            <div class="uploading files">
+                <h3>Upload Files</h3>
+                <form action=#>
+                    <input type="file" multiple="multiple">
+                    <input type="submit" value="Upload">
+                </form>
+            </div>
+            <div class="library content">
+                <h4>Files</h4>
+                <form action="#">
+                    {% for library in libraries %}
+                    <li>
+                        <a href="{% url 'library' library.id %}">{{ library.name }}</a>
+                        <!--i think there should be a form for each button-->
+                        <input type="button" value="Download">
+                        <input type="button" value="Edit">
+                        <input type="button" value="Get Info">
+                        <input type="button" value="Share">
+                    </li>
+                    {% endfor %}
+                </form>
+            </div>
+        </div>
+    </center>
+</body>
+
+</html>

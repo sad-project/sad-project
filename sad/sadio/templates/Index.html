@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome!</title>
+</head>
+
+<body>
+    <center>
+        <h1>Welcome!</h1>
+        <div class="container">
+            <div class="login form">
+                <h4>Login</h4>
+                <form action="#">
+                    <input type="text" id="username-login-input" placeholder="Enter your username"></br>
+                    </br>
+                    <input type="password" id="password-login-input" placeholder="Enter your password"></br>
+                    <a href="#">Forgot password?</a></br>
+                    </br>
+                    <input type="submit" value="Login"> {% csrf_token %}
+                </form>
+                </br>
+                </br>Don't have an account?
+            </div>
+            <div class="registeration form">
+                <h4>Register</h4>
+                <form method="post">
+                    <input type="text" id="username-register-input" placeholder="Enter your username"></br>
+                    </br>
+                    <input type="password" id="password-register-input" placeholder="Create a password">
+                    <input type="password" id="password-confirmation" placeholder="Confirm your password"></br>
+                    <input type="submit" value="Register"> {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </center>
+</body>
+
+</html>
