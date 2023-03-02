@@ -35,6 +35,9 @@
                     <input type="submit" value="Register"> {% csrf_token %}
                 </form>
             </div>
+            <p style="color: red;">
+                {{ login_message }}
+            </p>
         </div>
     </center>
 </body>
