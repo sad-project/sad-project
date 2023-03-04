@@ -18,6 +18,8 @@ CREATE_LIBRARY_SUBMIT_INPUT_KEY = "create-library-submit-input"
 LIBRARY_NAME_TEXT_INPUT_KEY = "library-name-text-input"
 FILE_INPUT_KEY = "file-input"
 UPLOAD_FILE_SUBMIT_INPUT_KEY = "upload-file-submit-input"
+LOGOUT_BUTTON_KEY = "logout-button"
+
 
 libraryhandler = LibraryHandler()
 
@@ -63,7 +65,9 @@ def libraries(request):
     libraries = Library.objects.filter(owner=logined_user)
     context["libraries"] = libraries
     if request.method == 'POST':
-        if CREATE_LIBRARY_SUBMIT_INPUT_KEY in request.POST:
+        if LOGOUT_BUTTON_KEY in request.POST:
+            return redirect("/")
+        elif CREATE_LIBRARY_SUBMIT_INPUT_KEY in request.POST:
             library_name = request.POST.get(LIBRARY_NAME_TEXT_INPUT_KEY, None)
             if library_name:
                 bucket = libraryhandler.create_new_bucket()
@@ -93,7 +97,6 @@ def library(request, library_name: str):
 
 def upload_file(file):
     pass
-
 
 
 def get_user(username):

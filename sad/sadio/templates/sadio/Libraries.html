@@ -11,7 +11,8 @@
 <body>
     <center>
         <form method="post">
-            <input type="submit" value="Logout" /></br>
+            <input type="submit" value="Logout" name="logout-button" />
+            </br>
             {% csrf_token %}
         </form>
         <h1>Home</h1>
@@ -40,7 +41,7 @@
                 <ul>
                     {% for library in libraries %}
                     <li>
-                        <a href="/library/?l={{ library.name }}">{{ library.name }}</a>
+                        <a href="/library/{{ library.name }}">{{ library.name }}</a>
                     </li>
                     {% endfor %}
                 </ul>
