@@ -24,7 +24,11 @@
                     <input type="submit" name="upload-file-submit-input" value="Upload">
                     {% csrf_token %}
                 </form>
+                <p style="color: red;">
+                    {{ upload_message }}
+                </p>
             </div>
+            <hr>
             <div class="library content">
                 <h4>Files</h4>
                 <ul>

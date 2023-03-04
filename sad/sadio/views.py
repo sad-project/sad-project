@@ -21,6 +21,7 @@ UPLOAD_FILE_SUBMIT_INPUT_KEY = "upload-file-submit-input"
 LOGOUT_BUTTON_KEY = "logout-button"
 LIBRARY_BACK_BUTTON_KEY = "library-back"
 LIBRARY_TYPE_INPUT_KEY = "library-type"
+UPLOAD_FILE_MESSAGE_KEY = "upload_message"
 
 
 libraryhandler = LibraryHandler()
@@ -88,14 +89,14 @@ def library(request, library_name: str):
     if request.method == 'POST':
         if UPLOAD_FILE_SUBMIT_INPUT_KEY in request.POST:
             file = request.FILES[FILE_INPUT_KEY]
-            if check_type(library, file):
+            if check_type(library, file.name):
                 with open(file.name, 'wb+') as destination:
                     for chunk in file.chunks():
                         destination.write(chunk)
                 libraryhandler.upload_file(library.bucket, file.name)
                 os.remove(file.name)
             else:
-                pass
+                context[UPLOAD_FILE_MESSAGE_KEY] = f"You should upload {library.type} file"
         elif LIBRARY_BACK_BUTTON_KEY in request.POST:
             return redirect("libraries")
     context["library"] = library
