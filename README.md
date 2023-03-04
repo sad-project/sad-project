@@ -15,6 +15,7 @@ sudo docker run \
 ```
 Then config the MinIO variables in `sad/sad/settings.py` and run the Django project.
 ```bash
+python sad/manage.py migrate
 python sad/manage.py runserver
 ```
 

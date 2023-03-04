@@ -23,25 +23,24 @@
                     <input type="text" name="library-name-text-input" placeholder="Enter library name">
                     </br>
                     </br>
-                    <!-- <h4>Library Type:</h4>
-                    <input type="radio" value="Audio">Audio
-                    <input type="radio" value="Video">Video
-                    <input type="radio" value="Book">Book
-                    <input type="radio" value="Image">Image
-                    <input type="radio" value="Other">Other...</br>
-                    <h4>Related Fields:</h4>
-                    <input type="text" id="fields-input" placeholder="Enter fields"> (comma-seperated)</br>
-                    </br> -->
+                    <input type="radio" name="library-type" value="generic" checked="checked">Generic</input>
+                    <input type="radio" name="library-type" value="document">Document</input>
+                    <input type="radio" name="library-type" value="music">Music</input>
+                    <input type="radio" name="library-type" value="video">Video</input>
+                    <input type="radio" name="library-type" value="picture">Pictures</input>
+                    <br>
+                    <br>
                     <input type="submit" name="create-library-submit-input" value="Create">
                     {% csrf_token %}
                 </form>
             </div>
+            <hr>
             <div class="libraries list">
                 <h4>Libraries</h4>
                 <ul>
                     {% for library in libraries %}
                     <li>
-                        <a href="/library/{{ library.name }}">{{ library.name }}</a>
+                        {{ library.type }}::<a href="/library/{{ library.name }}">{{ library.name }}</a>
                     </li>
                     {% endfor %}
                 </ul>

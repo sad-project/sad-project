@@ -11,6 +11,7 @@ class Library(models.Model):
     owner = models.ForeignKey("User", on_delete=models.CASCADE)
     bucket = models.CharField(max_length=255)
     fields = models.JSONField()
+    type = models.CharField(max_length=255, default="generic")
 
 
 class File(models.Model):

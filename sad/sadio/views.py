@@ -20,6 +20,7 @@ FILE_INPUT_KEY = "file-input"
 UPLOAD_FILE_SUBMIT_INPUT_KEY = "upload-file-submit-input"
 LOGOUT_BUTTON_KEY = "logout-button"
 LIBRARY_BACK_BUTTON_KEY = "library-back"
+LIBRARY_TYPE_INPUT_KEY = "library-type"
 
 
 libraryhandler = LibraryHandler()
@@ -70,13 +71,14 @@ def libraries(request):
             return redirect("/")
         elif CREATE_LIBRARY_SUBMIT_INPUT_KEY in request.POST:
             library_name = request.POST.get(LIBRARY_NAME_TEXT_INPUT_KEY, None)
+            library_type = request.POST.get(LIBRARY_TYPE_INPUT_KEY)
+            library = get_library(library_name)
             if library_name:
                 bucket = libraryhandler.create_new_bucket()
                 library = Library(name=library_name, owner=user,
-                                  bucket=bucket, fields={})
+                                  bucket=bucket, fields={}, type=library_type)
                 library.save()
-                return redirect("libraries")
-
+                return redirect("libraries")               
     return render(request, "sadio/Libraries.html", context)
 
 
@@ -86,11 +88,14 @@ def library(request, library_name: str):
     if request.method == 'POST':
         if UPLOAD_FILE_SUBMIT_INPUT_KEY in request.POST:
             file = request.FILES[FILE_INPUT_KEY]
-            with open(file.name, 'wb+') as destination:
-                for chunk in file.chunks():
-                    destination.write(chunk)
-            libraryhandler.upload_file(library.bucket, file.name)
-            os.remove(file.name)
+            if check_type(library, file):
+                with open(file.name, 'wb+') as destination:
+                    for chunk in file.chunks():
+                        destination.write(chunk)
+                libraryhandler.upload_file(library.bucket, file.name)
+                os.remove(file.name)
+            else:
+                pass
         elif LIBRARY_BACK_BUTTON_KEY in request.POST:
             return redirect("libraries")
     context["library"] = library
@@ -107,3 +112,22 @@ def get_user(username):
         return User.objects.get(username=username)
     except:
         return None
+
+def get_library(library_name):
+    try:
+        return Library.objects.get(library_name=library_name)
+    except:
+        return None
+    
+def check_type(library, file):
+    if library.type == "generic":
+        return True
+    elif library.type == "document":
+        return ".pdf" in file or ".doc" in file
+    elif library.type == "music":
+        return ".mp3" in file
+    elif library.type == "video":
+        return ".mp4" in file or ".mkv" in file
+    elif library.type == "picture":
+        return ".jpg" in file or ".png" in file
+    return False
