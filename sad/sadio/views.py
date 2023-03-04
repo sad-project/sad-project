@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .models import Library, User
-from .lib.libhandler import LibraryHandler
+from .userlib.libhandler import LibraryHandler
 import os
 
 USERNAME_TEXT_INPUT_KEY = "username-text-input"

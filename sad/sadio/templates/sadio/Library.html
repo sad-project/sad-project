@@ -29,7 +29,7 @@
                 <ul>
                     {% for f in files %}
                     <li>
-                        <a href="">{{ f.object_name }}</a>
+                        <a href="{{ f.url }}">{{ f.object.object_name }}</a>
                     </li>
                     {% endfor %}
                 </ul>
