@@ -19,6 +19,7 @@ LIBRARY_NAME_TEXT_INPUT_KEY = "library-name-text-input"
 FILE_INPUT_KEY = "file-input"
 UPLOAD_FILE_SUBMIT_INPUT_KEY = "upload-file-submit-input"
 LOGOUT_BUTTON_KEY = "logout-button"
+LIBRARY_BACK_BUTTON_KEY = "library-back"
 
 
 libraryhandler = LibraryHandler()
@@ -90,6 +91,8 @@ def library(request, library_name: str):
                     destination.write(chunk)
             libraryhandler.upload_file(library.bucket, file.name)
             os.remove(file.name)
+        elif LIBRARY_BACK_BUTTON_KEY in request.POST:
+            return redirect("libraries")
     context["library"] = library
     context["files"] = libraryhandler.get_file_list(library.bucket)
     return render(request, "sadio/Library.html", context)
