@@ -22,6 +22,14 @@
                 <form method="post" enctype="multipart/form-data">
                     <input type="file" name="file-input" id="file-input">
                     <input type="submit" name="upload-file-submit-input" value="Upload">
+                    <br>
+                    <br>
+                    {% for k, v in library.fields.items %}
+                        {% for f in v %}
+                        <input type="text" name="field_{{ f }}" placeholder="{{ f }}">
+                        <br>
+                        {% endfor %}
+                    {% endfor %}
                     {% csrf_token %}
                 </form>
                 <p style="color: red;">

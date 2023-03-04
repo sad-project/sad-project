@@ -22,6 +22,7 @@ LOGOUT_BUTTON_KEY = "logout-button"
 LIBRARY_BACK_BUTTON_KEY = "library-back"
 LIBRARY_TYPE_INPUT_KEY = "library-type"
 UPLOAD_FILE_MESSAGE_KEY = "upload_message"
+LIBRARY_FIELDS_TEXT_INPUT_KEY = "library-fields-text-input"
 
 
 libraryhandler = LibraryHandler()
@@ -73,19 +74,21 @@ def libraries(request):
         elif CREATE_LIBRARY_SUBMIT_INPUT_KEY in request.POST:
             library_name = request.POST.get(LIBRARY_NAME_TEXT_INPUT_KEY, None)
             library_type = request.POST.get(LIBRARY_TYPE_INPUT_KEY)
+            library_fields = request.POST.get(LIBRARY_FIELDS_TEXT_INPUT_KEY)
             library = get_library(library_name)
             if library_name:
                 bucket = libraryhandler.create_new_bucket()
                 library = Library(name=library_name, owner=user,
-                                  bucket=bucket, fields={}, type=library_type)
+                                  bucket=bucket, fields=parse_fields(library_fields), type=library_type)
                 library.save()
-                return redirect("libraries")               
+                return redirect("libraries")
     return render(request, "sadio/Libraries.html", context)
 
 
 def library(request, library_name: str):
     context = {}
     library = Library.objects.get(name=library_name)
+    print(library.fields)
     if request.method == 'POST':
         if UPLOAD_FILE_SUBMIT_INPUT_KEY in request.POST:
             file = request.FILES[FILE_INPUT_KEY]
@@ -104,22 +107,20 @@ def library(request, library_name: str):
     return render(request, "sadio/Library.html", context)
 
 
-def upload_file(file):
-    pass
-
-
 def get_user(username):
     try:
         return User.objects.get(username=username)
     except:
         return None
 
+
 def get_library(library_name):
     try:
         return Library.objects.get(library_name=library_name)
     except:
         return None
-    
+
+
 def check_type(library, file):
     if library.type == "generic":
         return True
@@ -132,3 +133,11 @@ def check_type(library, file):
     elif library.type == "picture":
         return ".jpg" in file or ".png" in file
     return False
+
+
+def parse_fields(fields: str) -> dict:
+    result = {"fields": []}
+    l = fields.split(",")
+    for field in l:
+        result["fields"].append(field.strip())
+    return result
