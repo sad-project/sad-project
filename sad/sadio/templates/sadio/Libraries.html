@@ -34,19 +34,19 @@
                     {% csrf_token %}
                 </form>
             </div>
-            <hr>
-            <div class="libraries list">
-                <h4>Libraries</h4>
-                <ul>
-                    {% for library in libraries %}
-                    <li>
-                        {{ library.type }}::<a href="/library/{{ library.name }}">{{ library.name }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
         </div>
     </center>
+    <hr>
+    <div class="libraries list">
+        <h4>Libraries</h4>
+        <ul>
+            {% for library in libraries %}
+            <li>
+                {{ library.type }}::<a href="/library/{{ library.name }}">{{ library.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 
 </html>

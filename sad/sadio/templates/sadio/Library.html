@@ -11,7 +11,7 @@
 <body>
     <center>
         <form method="post">
-            <input type="submit" value="Back to Home" name="library-back"/>
+            <input type="submit" value="Back to Home" name="library-back" />
             </br>
             {% csrf_token %}
         </form>
@@ -28,19 +28,19 @@
                     {{ upload_message }}
                 </p>
             </div>
-            <hr>
-            <div class="library content">
-                <h4>Files</h4>
-                <ul>
-                    {% for f in files %}
-                    <li>
-                        <a href="{{ f.url }}">{{ f.object.object_name }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
         </div>
     </center>
+    <hr>
+    <div class="library content">
+        <h4>Files</h4>
+        <ul>
+            {% for f in files %}
+            <li>
+                <a href="{{ f.url }}">{{ f.object.object_name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 
 </html>
