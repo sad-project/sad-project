@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from .models import Library, User
+from .models import Library, User, File
 from .userlib.libhandler import LibraryHandler
 import os
 
@@ -100,10 +100,19 @@ def library(request, library_name: str):
                 os.remove(file.name)
             else:
                 context[UPLOAD_FILE_MESSAGE_KEY] = f"You should upload {library.type} file"
+            fields_values = {}
+            for field in library.fields["fields"]:
+                key = f"field_{field}"
+                value = request.POST.get(key, "")
+                fields_values[field] = value
+            file_obj = File(name=file.name, library=library, fields=fields_values)
+            file_obj.save()
         elif LIBRARY_BACK_BUTTON_KEY in request.POST:
             return redirect("libraries")
     context["library"] = library
     context["files"] = libraryhandler.get_file_list(library.bucket)
+    for file in context["files"]:
+        file.file_obj = File.objects.get(name=file.object.object_name, library=library)
     return render(request, "sadio/Library.html", context)
 
 

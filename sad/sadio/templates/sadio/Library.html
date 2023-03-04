@@ -45,6 +45,12 @@
             {% for f in files %}
             <li>
                 <a href="{{ f.url }}">{{ f.object.object_name }}</a>
+                <br>
+                <ul>
+                    {% for k, v in f.file_obj.fields.items %}
+                        <li>{{ k }}: {{ v }}</li>
+                    {% endfor %}
+                </ul>
             </li>
             {% endfor %}
         </ul>

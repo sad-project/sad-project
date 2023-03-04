@@ -17,7 +17,6 @@ class Library(models.Model):
 class File(models.Model):
     name = models.CharField(max_length=255)
     library = models.ForeignKey("Library", on_delete=models.CASCADE)
-    creation_date = models.DateTimeField()
     fields = models.JSONField()
 
     class Meta:

@@ -8,6 +8,7 @@ class File:
     def __init__(self, url: str, object: minio.datatypes.Object):
         self.url = url
         self.object = object
+        self.file_obj = None
 
 
 class LibraryHandler:
