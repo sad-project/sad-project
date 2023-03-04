@@ -5,22 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Welcome!</title>
+    <title>SadIO</title>
 </head>
 
 <body>
     <center>
-        <h1>Welcome!</h1>
+        <h1>Welcome to SadIO!</h1>
         <div class="container">
             <div class="login form">
                 <h4>Login</h4>
-                <form action="#">
-                    <input type="text" id="username-login-input" placeholder="Enter your username"></br>
+                <form method="post">
+                    <input type="text" name="login-username-text-input" placeholder="Enter your username">
                     </br>
-                    <input type="password" id="password-login-input" placeholder="Enter your password"></br>
-                    <a href="#">Forgot password?</a></br>
                     </br>
-                    <input type="submit" value="Login"> {% csrf_token %}
+                    <input type="password" name="login-password-password-input" placeholder="Enter your password">
+                    </br>
+                    <br>    
+                    <a href="./bekiram">Forgot password?</a>
+                    </br>
+                    </br>
+                    <input type="submit" name="login-submit-input" value="Login">
+                    {% csrf_token %}
                 </form>
                 </br>
                 </br>Don't have an account?
@@ -28,11 +33,15 @@
             <div class="registeration form">
                 <h4>Register</h4>
                 <form method="post">
-                    <input type="text" id="username-register-input" placeholder="Enter your username"></br>
+                    <input type="text" name="register-username-text-input" placeholder="Enter your username">
                     </br>
-                    <input type="password" id="password-register-input" placeholder="Create a password">
-                    <input type="password" id="password-confirmation" placeholder="Confirm your password"></br>
-                    <input type="submit" value="Register"> {% csrf_token %}
+                    </br>
+                    <input type="password" name="register-password-password-input" placeholder="Create a password">
+                    <input type="password" name="register-confirm-password-password-input" placeholder="Confirm your password">
+                    </br>
+                    </br>
+                    <input type="submit" name="register-submit-input" value="Register">
+                    {% csrf_token %}
                 </form>
             </div>
             <p style="color: red;">
