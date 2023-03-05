@@ -5,56 +5,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+    />
+
     <title>{{ library.name }} Library</title>
 </head>
 
 <body>
     <center>
-        <form method="post">
-            <input type="submit" value="Back to Home" name="library-back" />
-            </br>
-            {% csrf_token %}
-        </form>
-        <h1>{{ library.type }}::{{ library.name }}</h1>
-        <div class="container">
-            <div class="uploading files">
-                <h3>Upload Files</h3>
-                <form method="post" enctype="multipart/form-data">
-                    <input type="file" name="file-input" id="file-input">
-                    <input type="submit" name="upload-file-submit-input" value="Upload">
-                    <br>
-                    <br>
-                    {% for k, v in library.fields.items %}
-                        {% for f in v %}
-                        <input type="text" name="field_{{ f }}" placeholder="{{ f }}">
-                        <br>
-                        {% endfor %}
-                    {% endfor %}
+        <div class="container-fluid">
+            <div class="jumbotron" style="margin-top: 20px">
+                <form method="post">
+                    <input class="btn btn-secondary"  type="submit" value="Back to Home" name="library-back" />
+                    </br>
                     {% csrf_token %}
                 </form>
-                <p style="color: red;">
-                    {{ upload_message }}
-                </p>
-            </div>
-        </div>
-    </center>
-    <hr>
-    <div class="library content">
-        <h4>Files</h4>
-        <ul>
-            {% for f in files %}
-            <li>
-                <a href="{{ f.url }}">{{ f.object.object_name }}</a>
                 <br>
+                <h1 class="font-weight-bold fs-1 text-danger">{{ library.type }}::{{ library.name }}</h1>
+                <br>
+                <div class="container">
+                    <div class="uploading files">
+                        <h3>Upload Files</h3>
+                        <form method="post" enctype="multipart/form-data">
+                            <input type="file" name="file-input" id="file-input">
+                            <input class="btn btn-danger" type="submit" name="upload-file-submit-input" value="Upload">
+                            <br>
+                            <br>
+                            {% for k, v in library.fields.items %}
+                                {% for f in v %}
+                                <input type="text" name="field_{{ f }}" placeholder="{{ f }}">
+                                <br>
+                                {% endfor %}
+                            {% endfor %}
+                            {% csrf_token %}
+                        </form>
+                        <p style="color: red;">
+                            {{ upload_message }}
+                        </p>
+                    </div>
+                </div>
+            <hr>
+            <br>
+            <div class="library content">
+                <h4>Files</h4>
                 <ul>
-                    {% for k, v in f.file_obj.fields.items %}
-                        <li>{{ k }}: {{ v }}</li>
+                    {% for f in files %}
+                    <li>
+                        <a href="{{ f.url }}">{{ f.object.object_name }}</a>
+                        <br>
+                        <ul>
+                            {% for k, v in f.file_obj.fields.items %}
+                                <li>{{ k }}: {{ v }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                     {% endfor %}
                 </ul>
-            </li>
-            {% endfor %}
-        </ul>
+            </div>
+        </div>
     </div>
+    </center>
 </body>
 
 </html>
