@@ -134,13 +134,13 @@ def check_type(library, file):
     if library.type == "generic":
         return True
     elif library.type == "document":
-        return ".pdf" in file or ".doc" in file
+        return ".pdf" in file or ".doc" in file or ".html" in file or ".pptx" in file
     elif library.type == "music":
-        return ".mp3" in file
+        return ".mp3" in file or ".wav" in file or ".flac" in file
     elif library.type == "video":
-        return ".mp4" in file or ".mkv" in file
+        return ".mp4" in file or ".mkv" in file or ".mov" in file or ".srt" in file or ".ts" in file
     elif library.type == "picture":
-        return ".jpg" in file or ".png" in file
+        return ".jpg" in file or ".png" in file or ".svg" in file
     return False
 
 
