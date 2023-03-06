@@ -5,6 +5,7 @@ from .models import Library, User, File
 from .userlib.libhandler import LibraryHandler
 import os
 
+#Login/Register Constants
 LOGIN_USERNAME_TEXT_INPUT_KEY = "login-username-text-input"
 LOGIN_PASSWORD_PASSWORD_INPUT_KEY = "login-password-password-input"
 REGISTER_USERNAME_TEXT_INPUT_KEY = "register-username-text-input"
@@ -14,6 +15,8 @@ LOGIN_SUBMIT_INPUT_KEY = "login-submit-input"
 REGISTER_SUBMIT_INPUT_KEY = "register-submit-input"
 LOGINED_USER_KEY = "logined_user"
 LOGIN_MESSAGE_KEY = "login_message"
+
+#Library Constants
 CREATE_LIBRARY_SUBMIT_INPUT_KEY = "create-library-submit-input"
 LIBRARY_NAME_TEXT_INPUT_KEY = "library-name-text-input"
 FILE_INPUT_KEY = "file-input"
