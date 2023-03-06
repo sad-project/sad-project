@@ -27,6 +27,10 @@ LIBRARY_TYPE_INPUT_KEY = "library-type"
 UPLOAD_FILE_MESSAGE_KEY = "upload_message"
 LIBRARY_FIELDS_TEXT_INPUT_KEY = "library-fields-text-input"
 
+#Page Paths
+HOME_PAGE_PATH = "sadio/Index.html"
+ALL_LIBRARIES_PAGE_PATH = "sadio/Libraries.html"
+LIBRARY_PAGE_PATH = "sadio/Library.html"
 
 libraryhandler = LibraryHandler()
 
@@ -61,7 +65,7 @@ def index(request):
                     new_user = User(username=username, password=password)
                     new_user.save()
                     context[LOGIN_MESSAGE_KEY] = "User created successfuly"
-    return render(request, "sadio/Index.html", context)
+    return render(request, HOME_PAGE_PATH, context)
 
 
 def libraries(request):
@@ -85,7 +89,7 @@ def libraries(request):
                                   bucket=bucket, fields=parse_fields(library_fields), type=library_type)
                 library.save()
                 return redirect("libraries")
-    return render(request, "sadio/Libraries.html", context)
+    return render(request, ALL_LIBRARIES_PAGE_PATH, context)
 
 
 def library(request, library_name: str):
@@ -116,7 +120,7 @@ def library(request, library_name: str):
     context["files"] = libraryhandler.get_file_list(library.bucket)
     for file in context["files"]:
         file.file_obj = File.objects.get(name=file.object.object_name, library=library)
-    return render(request, "sadio/Library.html", context)
+    return render(request, LIBRARY_PAGE_PATH, context)
 
 
 def get_user(username):
